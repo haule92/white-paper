@@ -4,6 +4,12 @@ First make python path available to be able to run the script through terminal. 
 ```sh
 export PYTHONPATH=/home/path/is/name_of_the_repo
 ```
+or
+```sh
+export PYTHONPATH=$PYTHONPATH:/home/ubuntuc/src/
+```
+I am not sure about the difference between the two.
+
 Move inside the directory where the script is located to create the sh files to run/kill it.
 Create a sh file through nano to run the python script
 ```sh
