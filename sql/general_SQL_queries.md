@@ -5,10 +5,13 @@
 update table_name set column_name = 'something' where custom_id = 1; 
 ```
 
-- Delete row matching custom_id.
+- Delete row matching custom_id. Or more than row second line.
 ```sql
-delete from table_name where custom_id = 1; 
+delete from table_name where custom_id = 1;
+delete from table_name where custom_id in (1,2,3);
 ```
+
+- 
 
 - Create a sql user and the connection to the database. The credentials are username, password and the ip of the machine which you want to connect to the database. The id could be 'localhost' if the user want to be created is in the same machine that the database.
 ```sql
@@ -18,8 +21,6 @@ create user 'username'@'127.0.0.0' identified by 'password';
 - Grant all the privileges to the user in a database.
 ```sql
 grant all on database_name.* to 'username'@'127.0.0.0' identified by 'password' with grant option;
-```
-```sql
 flush privileges;
 ```
 
