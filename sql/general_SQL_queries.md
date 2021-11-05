@@ -28,3 +28,8 @@ flush privileges;
 ```sql
 select count (*) from table_name;
 ```
+
+- Rename host(ip) and user(name) already existing.
+```sql
+rename user 'jeffrey'@'localhost' TO 'jeff'@'127.0.0.1';
+```
