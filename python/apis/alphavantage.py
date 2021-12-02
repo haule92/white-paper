@@ -105,5 +105,5 @@ class AVQuery(Credentials):
 
 
 avq = AVQuery()
-daily = avq.daily_data(symbol='IBM', function='TIME_SERIES_DAILY', outputsize='full')
-daily2 = avq.daily_data(symbol='XOM', function='TIME_SERIES_DAILY', outputsize='full')
+daily = avq.daily_data(symbol='VWRL.AMS', function='TIME_SERIES_DAILY', outputsize='full')
+# daily2 = avq.daily_data(symbol='XOM', function='TIME_SERIES_DAILY', outputsize='full')
