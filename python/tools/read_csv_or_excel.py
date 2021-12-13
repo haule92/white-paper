@@ -34,42 +34,63 @@ class ReadGenericFileCSVEXCEL:
             else:
                 raise ValueError('kwargs not found')
 
-    def csv(self):
+    def csv(self) -> list:
         """
         Method to read csv files taking care if they have encodings or delimiters added before read it.
         :return: pd.DataFrame()
         """
         os.chdir(self.relative_path)
         directory = os.listdir(self.relative_path)
+        directory.sort()
         if len(directory) == 0:
             print('Directory is empty')
-            return pd.DataFrame()
+            return [pd.DataFrame()]
         else:
-            for file in directory:
+            dfs = []
+            for iteration, file in enumerate(directory):
                 if hasattr(self, 'encoding_file') and hasattr(self, 'delimiter_file'):
-                    return pd.read_csv(filepath_or_buffer=file,
-                                       encoding=self.encoding_file,
-                                       delimiter=self.delimiter_file)
-                elif hasattr(self, 'encoding_file') and not hasattr(self, 'delimiter'):
-                    return pd.read_csv(filepath_or_buffer=file, encoding=self.encoding_file)
-                elif not hasattr(self, 'encoding_file') and hasattr(self, 'delimiter'):
-                    return pd.read_csv(filepath_or_buffer=file, delimiter=self.delimiter_file)
+                    print(f'{iteration} \t reading: {file}')
+                    dfs.append(pd.read_csv(filepath_or_buffer=file,
+                                           encoding=self.encoding_file,
+                                           delimiter=self.delimiter_file))
+                elif hasattr(self, 'encoding_file') and not hasattr(self, 'delimiter_file'):
+                    print(f'{iteration} \t reading: {file}')
+                    dfs.append(pd.read_csv(filepath_or_buffer=file, encoding=self.encoding_file))
+                elif not hasattr(self, 'encoding_file') and hasattr(self, 'delimiter_file'):
+                    print(f'{iteration} \t reading: {file}')
+                    dfs.append(pd.read_csv(filepath_or_buffer=file, delimiter=self.delimiter_file))
                 else:
-                    return pd.read_csv(filepath_or_buffer=file)
+                    print(f'{iteration} \t reading: {file}')
+                    dfs.append(pd.read_csv(filepath_or_buffer=file))
 
-    def excel(self):
+            return dfs
+
+    def excel(self) -> list:
         """
         Method to read excel files with or without sheet_name_file.
         :return: pd.DataFrame()
         """
         os.chdir(self.relative_path)
         directory = os.listdir(self.relative_path)
+        directory.sort()
         if len(directory) == 0:
             print('Directory is empty')
-            return pd.DataFrame()
+            return [pd.DataFrame()]
         else:
-            for file in directory:
+            dfs = []
+            for iteration, file in enumerate(directory):
                 if hasattr(self, 'sheet_name_file'):
-                    return pd.read_excel(io=file, sheet_name=self.sheet_name_file, engine='openpyxl')
+                    if re.search(r'\.xlsx', file, re.I):
+                        print(f'{iteration} \t reading: {file}')
+                        dfs.append(pd.read_excel(io=file, sheet_name=self.sheet_name_file, engine='openpyxl'))
+                    else:
+                        print(f'{iteration} \t reading: {file}')
+                        dfs.append(pd.read_excel(io=file, sheet_name=self.sheet_name_file))
                 else:
-                    return pd.read_excel(io=file)
+                    if re.search(r'\.xlsx', file, re.I):
+                        print(f'{iteration} \t reading: {file}')
+                        dfs.append(pd.read_excel(io=file, engine='openpyxl'))
+                    else:
+                        print(f'{iteration} \t reading: {file}')
+                        dfs.append(pd.read_excel(io=file))
+            return dfs
