@@ -5,6 +5,7 @@ import numpy as np
 class ComputeReturns:
 
     def __init__(self, prices_df: pd.DataFrame, ohlcv: dict):
+        pass
 
 
 class Indicator:
