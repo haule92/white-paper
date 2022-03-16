@@ -33,3 +33,8 @@ select count (*) from table_name;
 ```sql
 rename user 'jeffrey'@'localhost' TO 'jeff'@'127.0.0.1';
 ```
+
+- Create backup database mysql (using MariaDB)
+```sql
+
+```
